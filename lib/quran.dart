@@ -70,6 +70,143 @@ const String basmala = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱ�
 ///The constant 'سَجْدَةٌ'
 const String sajdah = "سَجْدَةٌ";
 
+/// avaiable bitrates of audio
+enum BitRates {
+  bitRate32,
+  bitRate40,
+  bitRate48,
+  bitRate64,
+  bitRate128,
+  bitRate192,
+}
+
+/// returns value of specific bitrate
+int getBitRateValue(BitRates bitRate) {
+  switch (bitRate) {
+    case BitRates.bitRate32:
+      return 32;
+    case BitRates.bitRate40:
+      return 40;
+    case BitRates.bitRate48:
+      return 48;
+    case BitRates.bitRate64:
+      return 64;
+    case BitRates.bitRate128:
+      return 128;
+    case BitRates.bitRate192:
+      return 192;
+    default:
+      return 128;
+  }
+}
+
+/// [avaiableReciters] contains the list of available reciters with their audio bitrate
+Map<BitRates, List<String>> avaiableReciters = {
+  BitRates.bitRate128: [
+    'ar.ahmedajamy',
+    'ar.alafasy',
+    'ar.hudhaify',
+    'ar.husary',
+    'ar.husarymujawwad',
+    'ar.mahermuaiqly',
+    'ar.minshawi',
+    'ar.muhammadayyoub',
+    'ar.muhammadjibreel',
+    'ar.shaatree',
+    'fr.leclerc',
+    'zh.chinese',
+  ],
+  BitRates.bitRate192: [
+    'ar.abdulbasitmurattal',
+    'ar.abdullahbasfar',
+    'ar.abdurrahmaansudais',
+    'ar.hanirifai',
+    'en.walk',
+  ],
+  BitRates.bitRate32: [
+    'ar.abdullahbasfar',
+    'ar.hudhaify',
+    'ar.ibrahimakhbar',
+  ],
+  BitRates.bitRate40: [
+    'fa.hedayatfarfooladvand',
+  ],
+  BitRates.bitRate48: [
+    'ar.parhizgar',
+  ],
+  BitRates.bitRate64: [
+    'ar.abdulbasitmurattal',
+    'ar.abdullahbasfar',
+    'ar.abdulsamad',
+    'ar.abdurrahmaansudais',
+    'ar.ahmedajamy',
+    'ar.alafasy',
+    'ar.aymanswoaid',
+    'ar.hanirifai',
+    'ar.hudhaify',
+    'ar.husary',
+    'ar.husarymujawwad',
+    'ar.mahermuaiqly',
+    'ar.minshawimujawwad',
+    'ar.saoodshuraym',
+    'ar.shaatree',
+    'ur.khan',
+  ],
+};
+
+/// Returns All avaiable bitrates
+List<int> getAllBitRateValues() {
+  return [
+    32,
+    40,
+    48,
+    64,
+    128,
+    192,
+  ];
+}
+
+/// Takes [bitRate] and returns the list of available reciters with that audio bitrate
+List<String> getReciterUrlNamesByBitRate(BitRates bitRate) {
+  return avaiableReciters[bitRate] ?? [];
+}
+
+/// Takes [surahNumber], [bitRate], [reciterUrlName] and return a required url
+String getAudioUrlBySurahAndBitRate(
+    int surahNumber, BitRates bitRate, String reciterUrlName) {
+  return "https://cdn.islamic.network/quran/audio-surah/$bitRate/$reciterUrlName/$surahNumber.mp3";
+}
+
+String getAudioURLByVerseAndBitRate(
+    int surahNumber, int verseNumber, BitRates bitRate, String reciterUrlName) {
+  int verseNum = 0;
+  for (var i in quranText) {
+    if (i['surah_number'] == surahNumber && i['verse_number'] == verseNumber) {
+      verseNum = quranText.indexOf(i) + 1;
+      break;
+    }
+  }
+  return "https://cdn.islamic.network/quran/audio/$bitRate/$reciterUrlName/$verseNum.mp3";
+}
+
+/*
+String getAudioURLBySurah(int surahNumber) {
+  return "https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/$surahNumber.mp3";
+}
+
+///Takes [surahNumber] & [verseNumber] and returns audio URL of that verse
+String getAudioURLByVerse(int surahNumber, int verseNumber) {
+  int verseNum = 0;
+  for (var i in quranText) {
+    if (i['surah_number'] == surahNumber && i['verse_number'] == verseNumber) {
+      verseNum = quranText.indexOf(i) + 1;
+      break;
+    }
+  }
+  return "https://cdn.islamic.network/quran/audio/128/ar.alafasy/$verseNum.mp3";
+}
+*/
+
 ///Takes [pageNumber] and returns total surahs count in that page
 int getSurahCountByPage(int pageNumber) {
   if (pageNumber < 1 || pageNumber > 604) {

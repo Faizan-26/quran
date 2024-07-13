@@ -1,6 +1,8 @@
 library quran;
 
 import 'dart:math';
+import 'package:quran/model/surah_reciter_model.dart';
+
 import './translations/en_saheeh.dart';
 import './translations/en_clearQuran.dart';
 import './translations/ru_kuliev.dart';
@@ -71,7 +73,7 @@ const String basmala = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱ�
 const String sajdah = "سَجْدَةٌ";
 
 /// avaiable bitrates of audio
-enum BitRates {
+enum VerseBitRates {
   bitRate32,
   bitRate40,
   bitRate48,
@@ -81,19 +83,19 @@ enum BitRates {
 }
 
 /// returns value of specific bitrate
-int getBitRateValue(BitRates bitRate) {
+int getBitRateValue(VerseBitRates bitRate) {
   switch (bitRate) {
-    case BitRates.bitRate32:
+    case VerseBitRates.bitRate32:
       return 32;
-    case BitRates.bitRate40:
+    case VerseBitRates.bitRate40:
       return 40;
-    case BitRates.bitRate48:
+    case VerseBitRates.bitRate48:
       return 48;
-    case BitRates.bitRate64:
+    case VerseBitRates.bitRate64:
       return 64;
-    case BitRates.bitRate128:
+    case VerseBitRates.bitRate128:
       return 128;
-    case BitRates.bitRate192:
+    case VerseBitRates.bitRate192:
       return 192;
     default:
       return 128;
@@ -101,8 +103,8 @@ int getBitRateValue(BitRates bitRate) {
 }
 
 /// [avaiableReciters] contains the list of available reciters with their audio bitrate
-Map<BitRates, List<String>> avaiableReciters = {
-  BitRates.bitRate128: [
+Map<VerseBitRates, List<String>> avaiableReciters = {
+  VerseBitRates.bitRate128: [
     'ar.ahmedajamy',
     'ar.alafasy',
     'ar.hudhaify',
@@ -116,25 +118,25 @@ Map<BitRates, List<String>> avaiableReciters = {
     'fr.leclerc',
     'zh.chinese',
   ],
-  BitRates.bitRate192: [
+  VerseBitRates.bitRate192: [
     'ar.abdulbasitmurattal',
     'ar.abdullahbasfar',
     'ar.abdurrahmaansudais',
     'ar.hanirifai',
     'en.walk',
   ],
-  BitRates.bitRate32: [
+  VerseBitRates.bitRate32: [
     'ar.abdullahbasfar',
     'ar.hudhaify',
     'ar.ibrahimakhbar',
   ],
-  BitRates.bitRate40: [
+  VerseBitRates.bitRate40: [
     'fa.hedayatfarfooladvand',
   ],
-  BitRates.bitRate48: [
+  VerseBitRates.bitRate48: [
     'ar.parhizgar',
   ],
-  BitRates.bitRate64: [
+  VerseBitRates.bitRate64: [
     'ar.abdulbasitmurattal',
     'ar.abdullahbasfar',
     'ar.abdulsamad',
@@ -167,38 +169,37 @@ List<int> getAllBitRateValues() {
 }
 
 /// Takes int value and  return corresponding BitRate from enum
-BitRates getBitRateByValue(int bitRate) {
+VerseBitRates getBitRateByValue(int bitRate) {
   switch (bitRate) {
     case 32:
-      return BitRates.bitRate32;
+      return VerseBitRates.bitRate32;
     case 40:
-      return BitRates.bitRate40;
+      return VerseBitRates.bitRate40;
     case 48:
-      return BitRates.bitRate48;
+      return VerseBitRates.bitRate48;
     case 64:
-      return BitRates.bitRate64;
+      return VerseBitRates.bitRate64;
     case 128:
-      return BitRates.bitRate128;
+      return VerseBitRates.bitRate128;
     case 192:
-      return BitRates.bitRate192;
+      return VerseBitRates.bitRate192;
     default:
-      return BitRates.bitRate128;
+      return VerseBitRates.bitRate128;
   }
 }
 
 /// Takes [bitRate] and returns the list of available reciters with that audio bitrate
-List<String> getReciterUrlNamesByBitRate(BitRates bitRate) {
+List<String> getReciterUrlNamesByBitRate(VerseBitRates bitRate) {
   return avaiableReciters[bitRate] ?? [];
 }
 
-/// Takes [surahNumber], [bitRate], [reciterUrlName] and return a required url
-String getAudioUrlBySurahAndBitRate(
-    int surahNumber, BitRates bitRate, String reciterUrlName) {
-  return "https://cdn.islamic.network/quran/audio-surah/${getBitRateValue(bitRate)}/$reciterUrlName/$surahNumber.mp3";
+
+String getAudioUrlSurahByReciterData(int surahNumber, SurahReciter reciter) {
+  return "https://cdn.islamic.network/quran/audio-surah/${reciter.bitrate}/${reciter.identifier}/$surahNumber.mp3";
 }
 
-String getAudioURLByVerseAndBitRate(
-    int surahNumber, int verseNumber, BitRates bitRate, String reciterUrlName) {
+String getAudioURLByVerseAndBitRate(int surahNumber, int verseNumber,
+    VerseBitRates bitRate, String reciterUrlName) {
   int verseNum = 0;
   for (var i in quranText) {
     if (i['surah_number'] == surahNumber && i['verse_number'] == verseNumber) {

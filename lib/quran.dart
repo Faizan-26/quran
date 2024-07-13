@@ -165,6 +165,25 @@ List<int> getAllBitRateValues() {
     192,
   ];
 }
+/// Takes int value and  return corresponding BitRate from enum
+BitRates getBitRateByValue(int bitRate) {
+  switch (bitRate) {
+    case 32:
+      return BitRates.bitRate32;
+    case 40:
+      return BitRates.bitRate40;
+    case 48:
+      return BitRates.bitRate48;
+    case 64:
+      return BitRates.bitRate64;
+    case 128:
+      return BitRates.bitRate128;
+    case 192:
+      return BitRates.bitRate192;
+    default:
+      return BitRates.bitRate128;
+  }
+}
 
 /// Takes [bitRate] and returns the list of available reciters with that audio bitrate
 List<String> getReciterUrlNamesByBitRate(BitRates bitRate) {

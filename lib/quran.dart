@@ -165,6 +165,7 @@ List<int> getAllBitRateValues() {
     192,
   ];
 }
+
 /// Takes int value and  return corresponding BitRate from enum
 BitRates getBitRateByValue(int bitRate) {
   switch (bitRate) {
@@ -193,7 +194,7 @@ List<String> getReciterUrlNamesByBitRate(BitRates bitRate) {
 /// Takes [surahNumber], [bitRate], [reciterUrlName] and return a required url
 String getAudioUrlBySurahAndBitRate(
     int surahNumber, BitRates bitRate, String reciterUrlName) {
-  return "https://cdn.islamic.network/quran/audio-surah/$bitRate/$reciterUrlName/$surahNumber.mp3";
+  return "https://cdn.islamic.network/quran/audio-surah/${getBitRateValue(bitRate)}/$reciterUrlName/$surahNumber.mp3";
 }
 
 String getAudioURLByVerseAndBitRate(
@@ -205,7 +206,7 @@ String getAudioURLByVerseAndBitRate(
       break;
     }
   }
-  return "https://cdn.islamic.network/quran/audio/$bitRate/$reciterUrlName/$verseNum.mp3";
+  return "https://cdn.islamic.network/quran/audio/${getBitRateValue(bitRate)}/$reciterUrlName/$verseNum.mp3";
 }
 
 /*

@@ -193,11 +193,12 @@ List<String> getReciterUrlNamesByBitRate(VerseBitRates bitRate) {
   return avaiableReciters[bitRate] ?? [];
 }
 
-
+/// Takes [surahNumber] and current [reciter] then it returns the surah audio URL of that surah by reciter 
 String getAudioUrlSurahByReciterData(int surahNumber, SurahReciter reciter) {
   return "https://cdn.islamic.network/quran/audio-surah/${reciter.bitrate}/${reciter.identifier}/$surahNumber.mp3";
 }
 
+/// Takes [surahNumber], [verseNumber], [bitRate] current bitrate, and [reciterUrlName] then it returns the verse audio URL of that verse by reciter
 String getAudioURLByVerseAndBitRate(int surahNumber, int verseNumber,
     VerseBitRates bitRate, String reciterUrlName) {
   int verseNum = 0;

@@ -1,20 +1,18 @@
-library quran;
-
 import 'dart:math';
 import 'package:quran/model/surah_reciter_model.dart';
 
 import './translations/en_saheeh.dart';
-import './translations/en_clearQuran.dart';
+import './translations/en_clearquran.dart';
 import './translations/ru_kuliev.dart';
 import './translations/tr_saheeh.dart';
 import './translations/ml_abdulhameed.dart';
-import './translations/fr_Hamidullah.dart';
-import './translations/fa_husseinDari.dart';
+import './translations/fr_hamidullah.dart';
+import './translations/fa_husseindari.dart';
 import './translations/it_piccardo.dart';
 import './translations/nl_siregar.dart';
-import './translations/pt.dart';
-import './translations/ur_translation.dart';
-import './translations/bangali.dart';
+import './translations/portuguese.dart';
+import './translations/urdu.dart';
+import './translations/bengali.dart';
 import './translations/chinese.dart';
 import './translations/indonesian.dart';
 import './translations/spanish.dart';
@@ -532,10 +530,10 @@ enum Translation {
   frHamidullah,
   itPiccardo,
   nlSiregar,
-  pt,
+  portuguese,
   ruKuliev,
   urdu,
-  bangali,
+  bengali,
   chinese,
   indonesian,
   spanish,
@@ -566,8 +564,8 @@ String getVerseTranslation(int surahNumber, int verseNumber,
     case Translation.nlSiregar:
       translationText = nlSiregar;
       break;
-    case Translation.pt:
-      translationText = pt;
+    case Translation.portuguese:
+      translationText = portuguese;
       break;
     case Translation.trSaheeh:
       translationText = trSaheeh;
@@ -582,10 +580,10 @@ String getVerseTranslation(int surahNumber, int verseNumber,
       translationText = ruKuliev;
       break;
     case Translation.urdu:
-      translationText = urduTranslation;
+      translationText = urdu;
       break;
-    case Translation.bangali:
-      translationText = bangali;
+    case Translation.bengali:
+      translationText = bengali;
       break;
     case Translation.chinese:
       translationText = chinese;
@@ -641,8 +639,8 @@ Map searchWordsInTranslation(List<String> words,
     case Translation.nlSiregar:
       translationText = nlSiregar;
       break;
-    case Translation.pt:
-      translationText = pt;
+    case Translation.portuguese:
+      translationText = portuguese;
       break;
     case Translation.trSaheeh:
       translationText = trSaheeh;
@@ -657,10 +655,10 @@ Map searchWordsInTranslation(List<String> words,
       translationText = ruKuliev;
       break;
     case Translation.urdu:
-      translationText = urduTranslation;
+      translationText = urdu;
       break;
-    case Translation.bangali:
-      translationText = bangali;
+    case Translation.bengali:
+      translationText = bengali;
       break;
     case Translation.chinese:
       translationText = chinese;
